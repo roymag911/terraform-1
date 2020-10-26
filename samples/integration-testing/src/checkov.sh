@@ -7,6 +7,7 @@
 #usage		       :./checkov.sh {WORKk_DIR}
 #bash_version    :5.0.16(1)-release 
 # 
+pwd
 set -eo pipefail
 
 # The target directory for scanning.
@@ -20,6 +21,7 @@ WORK_DIR=${1-$(pwd)}
 #   Writes test command outputs to stdout
 #   Exits on $? != 0
 #######################################
+pwd
 run_checkov() {
   local test_dir=$1
   docker run -t -v "${test_dir}":/tf bridgecrew/checkov:release-1.0.235 -d /tf
@@ -34,6 +36,7 @@ run_checkov() {
 # Outputs:
 #   Writes folders list to stdout
 #######################################
+pwd
 find_folders_by() {
   local pattern=${1:-"main.tf"}
   find "${WORK_DIR}" -type f -name "${pattern}" -printf '%h\n' | sort -u
